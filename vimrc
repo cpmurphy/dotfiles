@@ -8,7 +8,7 @@ set history=1000 " lots of command line history
 set cf " error files / jumping
 set ffs=unix,dos,mac " support these files
 filetype plugin indent on " load filetype plugin
-set isk+=_,$,@,%,#,- " non word dividers
+set isk+=_  " non word dividers
 set viminfo='1000,f1,:100,@100,/20
 set modeline " make sure modeline support is enabled
 set autoread " reload files (no local changes only)
@@ -47,7 +47,7 @@ set mat=5 " duration to show matching brace (1/10 sec)
 set incsearch " do incremental searching
 set laststatus=2 " always show the status line
 set noignorecase " do not ignore case when searching
-set nohlsearch " don't highlight searches
+set hlsearch " do highlight searches
 set visualbell " shut the fuck up
  
 " ----------------------------------------------------------------------------
@@ -77,4 +77,4 @@ map ,s :call StripWhitespace ()<CR>
 
 " --- bski did it ---"
 au BufEnter * lcd %:p:h
-
+set tags=tags;/
