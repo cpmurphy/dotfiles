@@ -112,11 +112,36 @@ function! RunTestFile(...)
     call RunTests(t:grb_test_file . command_suffix)
 endfunction
 
+map ,t :call RunTestFile()<cr>
+map ,T :call RunNearestTest()<cr>
+map ,a :call RunTests('')<cr>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Rename current file, also from garybernhardt
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 function! RunNearestTest()
     let spec_line_number = line('.')
     call RunTestFile(":" . spec_line_number)
 endfunction
-
-map ,t :call RunTestFile()<cr>
-map ,T :call RunNearestTest()<cr>
-map ,a :call RunTests('')<cr>
+function! RenameFile()
+    let old_name = expand('%')
+    let new_name = input('New file name: ', expand('%'), 'file')
+    if new_name != '' && new_name != old_name
+        exec ':saveas ' . new_name
+        exec ':silent !rm ' . old_name
+        redraw!
+    endif
+endfunction
+map ,n :call RenameFile()<cr>
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Promote variable to rspec let
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+function! PromoteToLet()
+  :normal! dd
+  " :exec '?^\s*it\>'
+  :normal! P
+  :.s/\(\w\+\) = \(.*\)$/let(:\1) { \2 }/
+  :normal ==
+endfunction
+:command! PromoteToLet :call PromoteToLet()
+:map ,p :PromoteToLet<cr>
