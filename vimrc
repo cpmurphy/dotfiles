@@ -145,3 +145,4 @@ function! PromoteToLet()
 endfunction
 :command! PromoteToLet :call PromoteToLet()
 :map ,p :PromoteToLet<cr>
+set runtimepath^=~/.vim/bundle/ctrlp.vim
