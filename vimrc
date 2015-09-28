@@ -78,71 +78,7 @@ map ,s :call StripWhitespace ()<CR>
 " --- bski did it ---"
 au BufEnter * lcd %:p:h
 set tags=tags;/
-
-" ---------------------------------------------------------------------------
-" Running tests, original from https://github.com/garybernhardt/dotfiles
-" ---------------------------------------------------------------------------
-
-function! RunTests(filename)
-    " Write the file and run tests for the given filename
-    :w
-    :silent !echo;echo;echo;echo;echo;echo;echo;echo;echo;echo
-      exec ":!bundle exec rspec " . a:filename
-endfunction
-
-function! SetTestFile()
-    " Set the spec file that tests will be run for.
-    let t:grb_test_file=expand("%:p")
-endfunction
-
-function! RunTestFile(...)
-    if a:0
-        let command_suffix = a:1
-    else
-        let command_suffix = ""
-    endif
-
-    " Run the tests for the previously-marked file.
-    let in_test_file = match(expand("%"), '_spec.rb$') != -1
-    if in_test_file
-        call SetTestFile()
-    elseif !exists("t:grb_test_file")
-        return
-    endif
-    call RunTests(t:grb_test_file . command_suffix)
-endfunction
-
-map ,t :call RunTestFile()<cr>
-map ,T :call RunNearestTest()<cr>
-map ,a :call RunTests('')<cr>
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Rename current file, also from garybernhardt
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-function! RunNearestTest()
-    let spec_line_number = line('.')
-    call RunTestFile(":" . spec_line_number)
-endfunction
-function! RenameFile()
-    let old_name = expand('%')
-    let new_name = input('New file name: ', expand('%'), 'file')
-    if new_name != '' && new_name != old_name
-        exec ':saveas ' . new_name
-        exec ':silent !rm ' . old_name
-        redraw!
-    endif
-endfunction
-map ,n :call RenameFile()<cr>
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Promote variable to rspec let
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-function! PromoteToLet()
-  :normal! dd
-  " :exec '?^\s*it\>'
-  :normal! P
-  :.s/\(\w\+\) = \(.*\)$/let(:\1) { \2 }/
-  :normal ==
-endfunction
-:command! PromoteToLet :call PromoteToLet()
-:map ,p :PromoteToLet<cr>
+"-------------------------------
+" Give us our easy file loading!
+" -------------------------------
 set runtimepath^=~/.vim/bundle/ctrlp.vim
