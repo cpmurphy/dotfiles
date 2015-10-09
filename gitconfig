@@ -35,3 +35,5 @@
 
 [pager]
   color = true
+[push]
+  default = simple
