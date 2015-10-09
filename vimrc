@@ -82,3 +82,4 @@ set tags=tags;/
 " Give us our easy file loading!
 " -------------------------------
 set runtimepath^=~/.vim/bundle/ctrlp.vim
+set runtimepath^=~/.vim/bundle/jshint.vim
