@@ -6,8 +6,8 @@
   name = Christian Murphy
   email = christian.murphy@orbitz.com
 [alias]
+  aa = add -A
   st = status
-  sta = stash
   ci = commit
   br = branch
   co = checkout
